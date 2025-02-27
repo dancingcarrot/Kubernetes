@@ -210,11 +210,32 @@ kube-APIServer에 의하지 않고 kubelet이 파드를 생성 및 관리하는 
 $ systemctl restart kubelet
 
 
+### <div id='2.3.3'> 2.3.3 Static Pod 생성 조건
 
+-------
+> pod name: subtask-static-pod-nginx
+> image: busybox
+> port: 80
+-------
 
+### <div id='2.3.4'> 2.3.4 Static Pod 배포
 
+ ```
+ $ kubectl run subtask-static-pod-nginx -oyaml \
+    --image=nginx \
+    --port=80 \
+    --dry-run=client \
+    > /etc/kubernetes/manifests/subtask-static-pod-nginx.yaml
 
+ ``` 
+### <div id='2.3.5'> 2.3.5 Static Pod 삭제
 
+> Static pod path에서 subtask-static-pod-nginx.yaml파일을 삭제한 후 파드를 삭제한다.
+
+```
+root@ta-task-cluster-1:/etc/kubernetes/manifests# rm -rf subtask-static-pod-nginx.yaml 
+root@ta-task-cluster-1:/etc/kubernetes/manifests# kubectl delete pod subtask-static-pod-nginx-ta-task-cluster-1
+```
 
 
 
