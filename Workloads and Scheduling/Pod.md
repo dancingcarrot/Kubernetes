@@ -16,6 +16,13 @@
   2.3. [Static Pod](#2.3)<br>
   2.3.1. [개념](#2.3.1)<br>
   2.3.2. [Static Pod Path 변경 방법](#2.3.2)<br>
+  
+
+
+
+  2.4. [Multi contianer pod](#2.3)<br>
+
+  2.5. [Sidecar container pod](#2.5)<br>
 
 
 
@@ -238,8 +245,211 @@ root@ta-task-cluster-1:/etc/kubernetes/manifests# kubectl delete pod subtask-sta
 ```
 
 
+## <div id='2.4'> 2.4. Multi container pod
 
 
 
+### <div id='2.4.1'> 2.4.1. container와 pod의 차이점
+> 파드는 컨테이너로 이루어져 있으며, 컨테이너를 만들고 관리하는 도구가 도커이다.
+파드는 1개 이상의 컨테이너로 이루어져 있다.
+컨테이너는 개별적인 실행 환경을 갖는데, CPU, 네트워크, 메모리와 같은 시스템 자원을 독자적으로 사용하도록 할당된 환경이다.
+
+### <div id='2.4.2'> 2.4.2. 컨테이너를 동작시키는 pod 를 생성
+
+-------
+> pod name : subtask-multi-pod
+> pod image : nginx, redis, memcached
+-------
+
+- 컨테이너가 하나인 파드 생성
+```
+$ kubectl run multi --image=nginx --dry-run=client -oyaml > multi.yaml
+```
+- multi.yaml 파일에 컨테이너 추가하여 편집
 
 
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multi
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+  - image: redis
+    name: redis
+  - image: memcached
+    name: memcached
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+
+```
+
+- 배포
+
+```
+ubuntu@ta-task-cluster-1:~$ kubectl apply -f multi.yaml
+
+ubuntu@ta-task-cluster-1:~$ kubectl get pods
+NAME                                   READY   STATUS    RESTARTS        AGE
+multi                                  3/3     Running   0               79s
+
+```
+
+
+```
+ubuntu@ta-task-cluster-1:~$ kubectl describe pod multi
+
+Containers:
+  nginx:
+    Container ID:   cri-o://4eb2efe8b2f481a1730ce2e1e9d9f477cae723f9c92fd923baea0f8dd0950528
+    Image:          nginx
+    Image ID:       docker.io/library/nginx@sha256:088eea90c3d0a540ee5686e7d7471acbd4063b6e97eaf49b5e651665eb7f4dc7
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Mon, 10 Feb 2025 00:27:45 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-w9s7d (ro)
+  redis:
+    Container ID:   cri-o://1c50a1fef3494a46113c3adea24671be71a16f3c8a2f85ca199acef18f6637fd
+    Image:          redis
+    Image ID:       docker.io/library/redis@sha256:93a8d83b707d0d6a1b9186edecca2e37f83722ae0e398aee4eea0ff17c2fad0e
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Mon, 10 Feb 2025 00:27:53 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-w9s7d (ro)
+  memcached:
+    Container ID:   cri-o://cbdf25dea6ecd6813fb859d8608186f04c8d92d7c6c49e923f7cded74b7a0a42
+    Image:          memcached
+    Image ID:       docker.io/library/memcached@sha256:a1d3a1c601732fc04245de562a3667db0bc3ae6964f0e830183d4dd5514b1b38
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Mon, 10 Feb 2025 00:28:00 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-w9s7d (ro)
+
+
+```
+
+
+## <div id='2.5'> 2.5. Streaming sidecar container
+
+
+
+### <div id='2.5.1'> 2.5.1. Sidecar container개념
+
+  > Sidecar contaienr는 기본 컨테이너의 기능을 확장하거나 보조하는 용도의 컨네이너이다.
+
+
+### <div id='2.5.2'> 2.5.2. 로그 스트리밍 사이드카 컨테이너 운영
+
+ ```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: counter
+spec:
+  containers:
+  - name:  count
+    image: busybox:1.28
+    args:
+    - /bin/sh
+    - -c
+    - >
+      i=0;
+      while true;
+      do
+        echo "$i: $(date)" >> /var/log/1.log;
+        echo "$(date) INFO $i" >> /var/log/2.log;
+        i=$((i+1));
+        sleep 1;
+      done
+    volumeMounts:
+    - name: varlog
+      mountPath: /var/log
+  volumes:
+  - name: varlog
+    emptyDir: {}
+
+ ```
+
+ ```
+ $ kubectl get pod counter -o yaml > subtask-sun2.yaml
+ > subtask-sun2.yaml에 sidecar container 추가
+
+          readOnly: true
+  - name: count-log-1
+    image: busybox
+    command: [/bin/sh, -c, 'tail -n+1 -F /var/log/1.log']
+    volumeMounts:
+    - name: varlog
+      mountPath: /var/log/1.log
+  - name: count-log-2
+    image: busybox
+    command: [/bin/sh, -c, 'tail -n+1 -F /var/log/2.log']
+    volumeMounts:
+    - name: varlog
+      mountPath: /var/log/2.log
+  dnsPolicy: ClusterFirst
+
+ ```
+
+> 처음 실행했던 counter pod 삭제
+```
+$ kubectl delete pod counter
+```
+> sidecar container를 추가한 yaml 적용
+
+```
+$ kubectl apply -f pod subtask-sun2.yaml
+```
+
+> describe, logs 로 확인
+
+```
+$ kubectl describe pod counter
+
+ Mounts:
+      /var/log/1.log from varlog (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-rr9wp (ro)
+  count-log-2:
+    Container ID:  
+    Image:         busybox
+    Image ID:      
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/sh
+      -c
+      tail -n+1 -F /var/log/2.log
+    State:          Waiting
+      Reason:       ErrImagePull
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/log/2.log from varlog (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-rr9wp (ro)
+
+
+
+ubuntu@ta-task-cluster-1:~$ kubectl logs counter
+Defaulted container "count" out of: count, count-log-1, count-log-2
+
+
+```
