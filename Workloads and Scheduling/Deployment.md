@@ -18,7 +18,7 @@
 
 ### <div id='1.1'> 1.1. Deployment
 
-> Pod : Deployment란 k8s에서 애플리케이션 단위를 관리하는 controller이다.
+> Deployment란 k8s에서 애플리케이션 단위를 관리하는 controller이다.
 <br>
 
 ### <div id='1.2'> 1.2. Scale-in/Scale-out
