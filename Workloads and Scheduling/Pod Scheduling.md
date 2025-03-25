@@ -30,7 +30,7 @@
 <br>
 <br>
 
-# <div id='2'> 2. Lable & Selecotr
+# <div id='2'> 2. Lable & Selector
 Label 및 selector 를 활용하여 다음 조건의 POD을 특정 NODE에 배포 될 수 있도록 구성하세요.
 <br>
 > node label: sub-task-node <br>
