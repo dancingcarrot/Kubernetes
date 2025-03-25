@@ -32,12 +32,12 @@
 
  kubectl 명령을 통해 webserver 라는 이름으로 yaml 을 생성하고, kubectl 명령을 통해 webserver Deployment의 pod 수를 3개로 확장하세요.
 
-> kind: deployment <br>
-> Name: webserver <br>
-> 2 replicas <br>
-> label: app_env_stage=dev <br>
-> container name: webserver <br>
-> container image: nginx:1.14 <br>
+- kind: deployment <br>
+- Name: webserver <br>
+- 2 replicas <br>
+- label: app_env_stage=dev <br>
+- container name: webserver <br>
+- container image: nginx:1.14 <br>
 
 ### <div id='2.1'> 2.1. Deployment 파일 생성 및 수정 <br>
 
