@@ -8,8 +8,6 @@
   2.1. [node에 label 추가](#2.1)<br>
   2.2. [pod 생성을 위한 yaml파일 생성 및 배포](#2.2)<br>
   2.3. [label이 생성된 노드에 배포 되었는지 확인](#2.3)<br>
-  2.4. [rolling update, update record 진행](#2.4)<br>
-  2.5. [이미지 버전 업데이트 확인](#2.5)<br>
 
 3. [Taints & Tolerations](#3)<br>
   3.1. [Taints](#3.1)<br>
@@ -42,9 +40,9 @@ Label 및 selector 를 활용하여 다음 조건의 POD을 특정 NODE에 배�
 ### <div id='2.1'> 2.1. node에 label 추가
 
 ```
-ubuntu@qna-cluster-1:~/workspace/sun$ kubectl label node qna-cluster-3 label=sub-task-node
+ubuntu@qna-cluster-1:~$ kubectl label node qna-cluster-3 label=sub-task-node
 
-ubuntu@qna-cluster-1:~/workspace/sun$ kubectl get nodes -L label
+ubuntu@qna-cluster-1:~$ kubectl get nodes -L label
 NAME            STATUS   ROLES           AGE   VERSION   LABEL
 qna-cluster-1   Ready    control-plane   33d   v1.30.4   
 qna-cluster-2   Ready    control-plane   33d   v1.30.4   
@@ -54,15 +52,15 @@ qna-cluster-4   Ready    <none>          33d   v1.30.4
 
 ### <div id='2.2'> 2.2. pod 생성을 위한 yaml파일 생성 및 배포
 ```
-ubuntu@qna-cluster-1:~/workspace/sun$ kubectl run webserver --image=nginx --labels="label=sub-task-node" --dry-run=client -oyaml > subtask-node-nginx.yaml
+ubuntu@qna-cluster-1:~$ kubectl run webserver --image=nginx --labels="label=sub-task-node" --dry-run=client -oyaml > subtask-node-nginx.yaml
 
-ubuntu@qna-cluster-1:~/workspace/sun$ kubectl apply -f subtask-node-nginx.yaml
+ubuntu@qna-cluster-1:~$ kubectl apply -f subtask-node-nginx.yaml
 ```
 
 ### <div id='2.3'> 2.3. label이 생성된 노드에 배포 되었는지 확인
 
 ```
-ubuntu@qna-cluster-1:~/workspace/sun$ kubectl get pods -owide
+ubuntu@qna-cluster-1:~$ kubectl get pods -owide
 NAME                                   READY   STATUS    RESTARTS       AGE   IP               NODE            NOMINATED NODE   READINESS GATES
 webserver                              1/1     Running   0              6s    10.233.122.182   qna-cluster-3   <none>           <none>
 ```
