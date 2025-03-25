@@ -49,7 +49,7 @@ ubuntu@qna-cluster-1:~$ kubectl create deployment webserver --image=nginx:1.14 -
 
  조건에 맞게 deployment 파일 수정
 ```
-ubuntu@qna-cluster-1:~/workspace/sun$ vi webserver.yaml 
+ubuntu@qna-cluster-1:~$ vi webserver.yaml 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -71,7 +71,7 @@ spec:
 
 ### <div id='2.2'> 2.2. 배포 확인 <br>
 ```
-ubuntu@qna-cluster-1:~/workspace/sun$ kubectl get pods
+ubuntu@qna-cluster-1:~$ kubectl get pods
 webserver-5d89946b46-chbgq             1/1     Running   0              9s
 webserver-5d89946b46-p9lr5             1/1     Running   0              9s
 ```
