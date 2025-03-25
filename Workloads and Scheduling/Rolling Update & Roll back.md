@@ -95,8 +95,6 @@ webserver-6855fb78d6-z5r4b             1/1     Running   0              30s
 
 ```
 ubuntu@qna-cluster-1:~$ kubectl set image deployment webserver nginx=nginx:1.17 --record
-
-ubuntu@qna-cluster-1:~$ kubectl set image deployment webserver nginx=nginx:1.17 --record
 Flag --record has been deprecated, --record will be removed in the future
 Warning: would violate PodSecurity "restricted:v1.30": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
 deployment.apps/webserver image updated
