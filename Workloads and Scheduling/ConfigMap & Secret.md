@@ -44,7 +44,7 @@ ubuntu@qna-cluster-1:~/workspace/sun$ openssl genrsa -out subtask.key 2048
 
 ### <div id='2.2'> 2.2. private key를 이용한 csr 생성
 ```
-ubuntu@qna-cluster-1:~/workspace/sun$ openssl req -new -key subtask.key -out subtask.csr
+ubuntu@qna-cluster-1:~$ openssl req -new -key subtask.key -out subtask.csr
 You are about to be asked to enter information that will be incorporated
 into your certificate request.
 What you are about to enter is what is called a Distinguished Name or a DN.
@@ -69,30 +69,30 @@ An optional company name []:
 ### <div id='2.3'> 2.3. crt 인증서 생성
 
 ```
-ubuntu@qna-cluster-1:~/workspace/sun$ openssl req -x509 -days 365 -key subtask.key -in subtask.csr -out subtask.crt -days 365
+ubuntu@qna-cluster-1:~$ openssl req -x509 -days 365 -key subtask.key -in subtask.csr -out subtask.crt -days 365
 Warning: No -copy_extensions given; ignoring any extensions in the request
 ```
 
 ### <div id='2.4'> 2.4. crt 파일을 pem 파일로 변환
 ```
-ubuntu@qna-cluster-1:~/workspace/sun$ openssl x509 -in subtask.crt -out subtask.pem -outform PEM
+ubuntu@qna-cluster-1:~$ openssl x509 -in subtask.crt -out subtask.pem -outform PEM
 ```
 
 
 ### <div id='2.5'> 2.5. secret 생성 및 확인
 ```
 >> secret 생성
-ubuntu@qna-cluster-1:~/workspace/sun$ kubectl create secret tls subtask-secret --key subtask.key --cert subtask.crt -n sun
+ubuntu@qna-cluster-1:~$ kubectl create secret tls subtask-secret --key subtask.key --cert subtask.crt
 secret/subtask-secret created
 
 >> secret 생성 확인
-ubuntu@qna-cluster-1:~/workspace/sun$ kubectl get secret -n sun
+ubuntu@qna-cluster-1:~$ kubectl get secret
 NAME             TYPE                DATA   AGE
 subtask-secret   kubernetes.io/tls   2      12s
 
-ubuntu@qna-cluster-1:~/workspace/sun$ kubectl describe secret subtask-secret -n sun
+ubuntu@qna-cluster-1:~$ kubectl describe secret subtask-secret
 Name:         subtask-secret
-Namespace:    sun
+Namespace:    default
 Labels:       <none>
 Annotations:  <none>
 
@@ -114,12 +114,13 @@ tls.key:  1704 bytes
 
 ### <div id='3.1'> 3.1. webserver configmap 생성
 ``` 
-kubectl run webserver-configmap --image=nginx --dry-run=client -o yaml > webserver-configmap.yaml
+ubuntu@qna-cluster-1:~$ kubectl create configmap webserver --from-literal=DBNAME=mysql --from-literal=USER=admin
+configmap/webserver created
 ```
 
 ### <div id='3.2'> 3.2. 파일을 수정하여 configmap 등록 후 배포
 ```
-ubuntu@qna-cluster-1:~/workspace/sun/2$ cat webserver-configmap.yaml 
+ubuntu@qna-cluster-1:~$ vi webserver-configmap.yaml 
 apiVersion: v1
 kind: Pod
 metadata:
@@ -133,7 +134,7 @@ spec:
       - configMapRef:
           name: webserver
 
-ubuntu@qna-cluster-1:~/workspace/sun/2$ kubectl get pods
+ubuntu@qna-cluster-1:~$ kubectl get pods
 NAME                                   READY   STATUS    RESTARTS   AGE
 webserver-configmap                    1/1     Running   0          12s
 
@@ -141,17 +142,17 @@ webserver-configmap                    1/1     Running   0          12s
 
 ### <div id='3.3'> 3.3. 확인
 ```
-ubuntu@qna-cluster-1:~/workspace/sun/2$ kubectl exec -it -n sun webserver-configmap -- env | grep DBNAME
+ubuntu@qna-cluster-1:~$ kubectl exec -it -n sun webserver-configmap -- env | grep DBNAME
 DBNAME=mysql
-ubuntu@qna-cluster-1:~/workspace/sun/2$ kubectl exec -it -n sun webserver-configmap -- env | grep USER
+ubuntu@qna-cluster-1:~$ kubectl exec -it -n sun webserver-configmap -- env | grep USER
 USER=admin
 
-ubuntu@qna-cluster-1:~/workspace/sun/2$ kubectl exec -it -n sun webserver-configmap -- /bin/bash 
+ubuntu@qna-cluster-1:~$ kubectl exec -it -n sun webserver-configmap -- /bin/bash 
 root@webserver-configmap:/# env
 KUBERNETES_SERVICE_PORT_HTTPS=443
 KUBERNETES_SERVICE_PORT=443
 HOSTNAME=webserver-configmap
-DBNAME=mysql    #DBNAME 확인
+DBNAME=mysql    <DBNAME 확인>
 PWD=/
 PKG_RELEASE=1~bookworm
 HOME=/root
@@ -159,7 +160,7 @@ KUBERNETES_PORT_443_TCP=tcp://10.233.0.1:443
 DYNPKG_RELEASE=1~bookworm
 NJS_VERSION=0.8.9
 TERM=xterm
-USER=admin      #USER 확인
+USER=admin      <USER 확인>
 SHLVL=1
 KUBERNETES_PORT_443_TCP_PROTO=tcp
 KUBERNETES_PORT_443_TCP_ADDR=10.233.0.1
