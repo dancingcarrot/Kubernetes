@@ -39,7 +39,7 @@
 ### <div id='2.1'> 2.1. private key 생성
 
 ```
-ubuntu@qna-cluster-1:~/workspace/sun$ openssl genrsa -out subtask.key 2048
+ubuntu@qna-cluster-1:~$ openssl genrsa -out subtask.key 2048
 ```
 
 ### <div id='2.2'> 2.2. private key를 이용한 csr 생성
