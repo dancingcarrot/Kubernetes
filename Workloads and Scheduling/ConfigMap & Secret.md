@@ -141,10 +141,12 @@ BinaryData
 ====
 ```
 <br>
+
 ### <div id='3.2'> 3.2. nginx 컨테이너 생성
 ```
 ubuntu@qna-cluster-1:~$ kubectl run webserver-configmap --image=nginx --dry-run=client -o yaml > webserver-configmap.yaml
 ```
+
 ### <div id='3.3'> 3.3. 파일을 수정하여 configmap 등록 후 배포
 ```
 ubuntu@qna-cluster-1:~$ vi webserver-configmap.yaml 
