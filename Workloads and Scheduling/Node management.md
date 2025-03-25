@@ -15,9 +15,7 @@
 
 ### <div id='1.1'> 1.1. kubectl drain option
 
-> --delete-emptydir-data : 노드가 비워지면 삭제되는 로컬 데이터인 emptyDir을 사용하는 pod가 있더라도 계속 진행한다. <br>
-> --force : 컨트롤러에 선언하지 않은 pod가 있더라도 계속 진행한다. <br>
-> --ignore-daemonsets : DaemonSet이 관리하는 pod를 무시한다.
+> kubectl drain [노드이름]
 
 <br>
 <br>
