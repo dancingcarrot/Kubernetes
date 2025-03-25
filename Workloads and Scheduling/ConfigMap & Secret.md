@@ -14,8 +14,9 @@
 
 3. [configmap 등록](#3)<br>
   3.1. [webserver configmap 생성](#3.1)<br>
-  3.2. [파일을 수정하여 configmap 등록 후 배포](#3.2)<br>
-  3.3. [확인](#3.3)<br>
+  3.2. [nginx 컨테이너 생성](#3.2)<br>
+  3.3. [파일을 수정하여 configmap 등록 후 배포](#3.3)<br>
+  3.4. [확인](#3.4)<br>
 
 <br>
 <br>
@@ -116,9 +117,35 @@ tls.key:  1704 bytes
 ``` 
 ubuntu@qna-cluster-1:~$ kubectl create configmap webserver --from-literal=DBNAME=mysql --from-literal=USER=admin
 configmap/webserver created
-```
 
-### <div id='3.2'> 3.2. 파일을 수정하여 configmap 등록 후 배포
+ubuntu@qna-cluster-1:~$ kubectl get configmap
+NAME                    DATA   AGE
+webserver               2      17s
+
+ubuntu@qna-cluster-1:~$ kubectl describe configmap webserver
+Name:         webserver
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
+
+Data
+====
+DBNAME:
+----
+mysql
+USER:
+----
+admin
+
+BinaryData
+====
+```
+<br>
+### <div id='3.2'> 3.2. nginx 컨테이너 생성
+```
+ubuntu@qna-cluster-1:~$ kubectl run webserver-configmap --image=nginx --dry-run=client -o yaml > webserver-configmap.yaml
+```
+### <div id='3.3'> 3.3. 파일을 수정하여 configmap 등록 후 배포
 ```
 ubuntu@qna-cluster-1:~$ vi webserver-configmap.yaml 
 apiVersion: v1
@@ -140,7 +167,7 @@ webserver-configmap                    1/1     Running   0          12s
 
 ```
 
-### <div id='3.3'> 3.3. 확인
+### <div id='3.4'> 3.4. 확인
 ```
 ubuntu@qna-cluster-1:~$ kubectl exec -it -n sun webserver-configmap -- env | grep DBNAME
 DBNAME=mysql
