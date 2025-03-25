@@ -28,7 +28,7 @@
 #### <div id='1.1.1'> 1.1.1. kubectl create Configmap
 > kubectl create configmap [configmap 이름] --from-literal=[키]=[값]
 
-#### <div id='1.1.1'> 1.1.1. kubectl create Secret
+#### <div id='1.1.2'> 1.1.2. kubectl create Secret
 > kubectl create secret [secret 종류] [secret 이름] [flags][options]
 
 <br>
