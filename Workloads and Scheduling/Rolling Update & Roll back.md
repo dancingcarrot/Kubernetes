@@ -100,6 +100,8 @@ Warning: would violate PodSecurity "restricted:v1.30": allowPrivilegeEscalation 
 deployment.apps/webserver image updated
 ```
 
+> 특정 버전으로 롤백하려면 --to-revision 옵션을 이용해 원하는 버전을 명시해줌
+kubectl rollout undo deployment/{Deployment 명} --to-revision={revision}
 
 ### <div id='2.5'> 2.5. 이미지 버전 업데이트 확인 <br>
 
