@@ -73,7 +73,7 @@ qna-cluster-4   Ready,SchedulingDisabled   <none>          34d   v1.30.4
 
 ### <div id='1.3'> 1.3. Ready 상태 node 수 기록
 
-Ready 상태(NoSchedule로 taint된 node는 제외)인 node를 찾아 그 수를 notaint_ready_node.log 에 기록하세요.
+Ready 상태(NoSchedule로 taint된 node는 제외)인 node를 찾아 그 수를 notaint_ready_node.log 에 기록.
 
 ```
 root@qna-cluster-1:/home/ubuntu/workspace/sun# echo 3 > /var/subtask/notaint_ready_node.log
