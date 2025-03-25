@@ -33,11 +33,11 @@
 
 Deployment를 이용해 nginx 파드를 3개 배포한 다음 컨테이너 이미지 버전을 rolling update하고 update record를 기록합니다. 마지막으로 history 확인 후 컨테이너 이미지를 previous version으로 roll back 합니다.
 
-> name: webserver
-> Image : nginx
-> Image version: 1.16
-> update image version: 1.17
-> label: app=payment, environment=production
+- name: webserver
+- Image : nginx
+- Image version: 1.16
+- update image version: 1.17
+- label: app=payment, environment=production
 
 
 ### <div id='2.1'> 2.1. Rolling Update/Roll back 을 수행하는 kubectl 명령 예시 <br>
