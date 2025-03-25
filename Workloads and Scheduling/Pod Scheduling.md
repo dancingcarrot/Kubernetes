@@ -4,7 +4,7 @@
   1.1. [Label](#1.1)<br>
   1.2. [Selector](#1.2)<br>
 
-2. [Lable & Selecotr](#2)<br>
+2. [Lable & Selector](#2)<br>
   2.1. [node에 label 추가](#2.1)<br>
   2.2. [pod 생성을 위한 yaml파일 생성 및 배포](#2.2)<br>
   2.3. [label이 생성된 노드에 배포 되었는지 확인](#2.3)<br>
