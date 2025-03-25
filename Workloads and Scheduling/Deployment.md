@@ -23,8 +23,8 @@
 
 ### <div id='1.2'> 1.2. Scale-in/Scale-out
 
-> Scale-in : 기존의 서버와 같은 사양의 서버 대수를 줄이는 것 <br>
-> Scale-out : 기존의 서버와 같은 사양의 서버 대수를 증가시키는 방법으로 처리 능력을 향상시키는 것을 의미
+> Scale-in : pod 또는 node의 개수를 감소시켜 불필요한 리소스 낭비를 방지하는 것 <br>
+> Scale-out : pod 또는 node의 개수를 증가시켜 부하를 분산시키는 것<br>
 
 <br>
 
