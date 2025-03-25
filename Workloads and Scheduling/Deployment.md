@@ -78,13 +78,13 @@ webserver-5d89946b46-p9lr5             1/1     Running   0              9s
 
 ### <div id='2.3'> 2.3. kubectl 명령어를 사용하여 pod의 수를 3개로 확장 <br>
 ```
-ubuntu@qna-cluster-1:~/workspace/sun/2$ kubectl scale --replicas=3 deployment webserver
+ubuntu@qna-cluster-1:~$ kubectl scale --replicas=3 deployment webserver
 deployment.apps/webserver scaled
 ```
 
 ### <div id='2.4'> 2.4. 확장 후 pod 개수 확인 <br>
 ```
-ubuntu@qna-cluster-1:~/workspace/sun/2$ kubectl get pods
+ubuntu@qna-cluster-1:~$ kubectl get pods
 NAME                                   READY   STATUS    RESTARTS   AGE
 webserver-5d89946b46-ftxbz             1/1     Running   0          5s
 webserver-5d89946b46-mphf4             1/1     Running   0          47s
