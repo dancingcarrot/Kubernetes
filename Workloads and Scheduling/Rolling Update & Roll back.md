@@ -84,7 +84,7 @@ spec:
 ```
 ubuntu@qna-cluster-1:~$ kubectl apply -f deployment-rolling.yml
 
-ubuntu@qna-cluster-1:~/workspace/sun$ kubectl get pods
+ubuntu@qna-cluster-1:~$ kubectl get pods
 NAME                                   READY   STATUS    RESTARTS       AGE
 webserver-6855fb78d6-jf5xg             1/1     Running   0              30s
 webserver-6855fb78d6-w89jb             1/1     Running   0              30s
@@ -96,7 +96,7 @@ webserver-6855fb78d6-z5r4b             1/1     Running   0              30s
 ```
 ubuntu@qna-cluster-1:~$ kubectl set image deployment webserver nginx=nginx:1.17 --record
 
-ubuntu@qna-cluster-1:~/workspace/sun$ kubectl set image deployment webserver nginx=nginx:1.17 --record
+ubuntu@qna-cluster-1:~$ kubectl set image deployment webserver nginx=nginx:1.17 --record
 Flag --record has been deprecated, --record will be removed in the future
 Warning: would violate PodSecurity "restricted:v1.30": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
 deployment.apps/webserver image updated
@@ -106,7 +106,7 @@ deployment.apps/webserver image updated
 ### <div id='2.5'> 2.5. 이미지 버전 업데이트 확인 <br>
 
 ```
-ubuntu@qna-cluster-1:~/workspace/sun$ kubectl get pod webserver-696dd55885-wdhb7 -oyaml
+ubuntu@qna-cluster-1:~$ kubectl get pod webserver-696dd55885-wdhb7 -oyaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -145,7 +145,7 @@ spec:
 ### <div id='2.6'> 2.6. history 확인 <br>
 
 ```
-ubuntu@qna-cluster-1:~/workspace/sun$ kubectl rollout history deployment webserver
+ubuntu@qna-cluster-1:~$ kubectl rollout history deployment webserver
 deployment.apps/webserver 
 REVISION  CHANGE-CAUSE
 1         <none>
@@ -154,14 +154,14 @@ REVISION  CHANGE-CAUSE
 
 ### <div id='2.7'> 2.7. 컨테이너 이미지를 이전 버전으로 roll back <br>
 ```
-ubuntu@qna-cluster-1:~/workspace/sun$ kubectl rollout undo deployment webserver
+ubuntu@qna-cluster-1:~$ kubectl rollout undo deployment webserver
 Warning: would violate PodSecurity "restricted:v1.30": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
 deployment.apps/webserver rolled back
 ```
 
 ### <div id='2.8'> 2.8. roll back 확인 <br>
 ```
-ubuntu@qna-cluster-1:~/workspace/sun$ kubectl get pods webserver-6855fb78d6-mqmnh -oyaml
+ubuntu@qna-cluster-1:~$ kubectl get pods webserver-6855fb78d6-mqmnh -oyaml
 apiVersion: v1
 kind: Pod
 metadata:
