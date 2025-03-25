@@ -171,12 +171,12 @@ webserver-configmap                    1/1     Running   0          12s
 
 ### <div id='3.4'> 3.4. 확인
 ```
-ubuntu@qna-cluster-1:~$ kubectl exec -it -n sun webserver-configmap -- env | grep DBNAME
+ubuntu@qna-cluster-1:~$ kubectl exec -it webserver-configmap -- env | grep DBNAME
 DBNAME=mysql
-ubuntu@qna-cluster-1:~$ kubectl exec -it -n sun webserver-configmap -- env | grep USER
+ubuntu@qna-cluster-1:~$ kubectl exec -it webserver-configmap -- env | grep USER
 USER=admin
 
-ubuntu@qna-cluster-1:~$ kubectl exec -it -n sun webserver-configmap -- /bin/bash 
+ubuntu@qna-cluster-1:~$ kubectl exec -it webserver-configmap -- /bin/bash 
 root@webserver-configmap:/# env
 KUBERNETES_SERVICE_PORT_HTTPS=443
 KUBERNETES_SERVICE_PORT=443
