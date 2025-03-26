@@ -42,9 +42,13 @@ Deployment를 이용해 nginx 파드를 3개 배포한 다음 컨테이너 이�
 
 ### <div id='2.1'> 2.1. Rolling Update/Roll back 을 수행하는 kubectl 명령 예시 <br>
 
-> Rolling Update <br> kubectl set image deployment webserer nginx=nginx:1.17 
+> Rolling Update <br>
+> 이미지 버전을 업데이트 할 경우
+> kubectl set image deployment webserer nginx=nginx:1.17 
 
-> Roll back <br> kubectl rollout undo deployment webserver
+> Roll back <br>
+> 이전에 배포된 버전의 deployment로 되돌릴 경우
+> kubectl rollout undo deployment webserver
 
 
 ### <div id='2.2'> 2.2. Deployment 생성 및 수정 <br>
