@@ -42,8 +42,11 @@
 ```
 ubuntu@qna-cluster-1:~$ openssl genrsa -out subtask.key 2048
 ```
->* public key 생성 방법 <br>
-> $ openssl rsa -in subtask.key -pubout -out publicSubtask.key
+
+<details>
+<summary> public key 생성 방법 </summary>
+$ openssl rsa -in subtask.key -pubout -out publicSubtask.key
+</details>
 
 ### <div id='2.2'> 2.2. private key를 이용한 csr 생성
 ```
