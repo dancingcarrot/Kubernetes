@@ -26,7 +26,7 @@
 > 서비스를 중단하지 않고 업데이트 하는 것
 
 ### <div id='1.2'> 1.2. Roll back
-> update한 yaml을 이전 yaml 설정으로 돌리는 것
+> 이전에 배포된 버전으로 되돌리는 작업
 
 
 # <div id='2'> 2. Rolling Update & Roll back <br>
