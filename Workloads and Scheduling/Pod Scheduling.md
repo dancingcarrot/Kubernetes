@@ -34,7 +34,7 @@ Label 및 selector 를 활용하여 다음 조건의 POD을 특정 NODE에 배�
 - node label: sub-task-node <br>
 - pod name: webserver <br>
 - pod image: nginx <br>
-- node selector: sub-task-nod
+- node selector: sub-task-node
 
 
 ### <div id='2.1'> 2.1. node에 label 추가
