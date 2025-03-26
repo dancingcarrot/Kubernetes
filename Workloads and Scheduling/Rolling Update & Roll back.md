@@ -40,7 +40,7 @@ Deployment를 이용해 nginx 파드를 3개 배포한 다음 컨테이너 이�
 - label: app=payment, environment=production
 
 
-### <div id='2.1'> 2.1. Rolling Update/Roll back 을 수행하는 kubectl 명령 예시 <br>
+### <div id='2.1'> 2.1. Rolling Update/Roll back 을 수행하는 kubectl 명령어 예시 <br>
 
 > - Rolling Update <br>
 > 이미지 버전을 업데이트 할 경우 <br>
