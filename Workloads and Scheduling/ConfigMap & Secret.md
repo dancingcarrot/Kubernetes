@@ -226,7 +226,7 @@ ubuntu@qna-cluster-1:~$ kubectl exec -it webserver-configmap -- env | grep DBNAM
 DBNAME=mysql
 ubuntu@qna-cluster-1:~$ kubectl exec -it webserver-configmap -- env | grep USER
 USER=admin
-ubuntu@qna-cluster-1:~$ kubectl exec -it webserver-configmap -n sun -- env | grep PASSWORD
+ubuntu@qna-cluster-1:~$ kubectl exec -it webserver-configmap -- env | grep PASSWORD
 PASSWORD=adminsecret
 
 
