@@ -161,12 +161,7 @@ secret/sun-secret created
 ubuntu@qna-cluster-1:~$ kubectl run webserver-configmap --image=nginx --dry-run=client -o yaml > webserver-configmap.yaml
 ```
 
-```
-ubuntu@qna-cluster-1:~$ kubectl get pods
-NAME                                   READY   STATUS    RESTARTS   AGE
-webserver-configmap                    1/1     Running   0          12s
 
-```
 ### <div id='3.4'> 3.4. 파일을 수정하여 configmap 등록 후 배포
 
 ```
@@ -192,6 +187,12 @@ spec:
 
 ```
 
+```
+ubuntu@qna-cluster-1:~$ kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+webserver-configmap                    1/1     Running   0          12s
+
+```
 
 ### <div id='3.5'> 3.5. 확인
 ```
