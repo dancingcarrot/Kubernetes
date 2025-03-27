@@ -14,9 +14,10 @@
 
 3. [configmap 등록](#3)<br>
   3.1. [webserver configmap 생성](#3.1)<br>
-  3.2. [nginx 컨테이너 생성](#3.2)<br>
-  3.3. [파일을 수정하여 configmap 등록 후 배포](#3.3)<br>
-  3.4. [확인](#3.4)<br>
+  3.2. [Secret 생성](#3.2)<br>
+  3.3. [nginx 컨테이너 생성](#3.3)<br>
+  3.4. [파일을 수정하여 configmap 등록 후 배포](#3.4)<br>
+  3.5. [확인](#3.5)<br>
 
 <br>
 <br>
@@ -147,12 +148,27 @@ BinaryData
 ```
 <br>
 
-### <div id='3.2'> 3.2. nginx 컨테이너 생성
+### <div id='3.2'> 3.2. secret 생성
+```
+kubectl create secret generic sun-secret --from-literal=PASSWORD=adminsecret
+secret/sun-secret created
+```
+
+
+### <div id='3.3'> 3.3. nginx 컨테이너 생성
+
 ```
 ubuntu@qna-cluster-1:~$ kubectl run webserver-configmap --image=nginx --dry-run=client -o yaml > webserver-configmap.yaml
 ```
 
-### <div id='3.3'> 3.3. 파일을 수정하여 configmap 등록 후 배포
+```
+ubuntu@qna-cluster-1:~$ kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+webserver-configmap                    1/1     Running   0          12s
+
+```
+### <div id='3.4'> 3.4. 파일을 수정하여 configmap 등록 후 배포
+
 ```
 ubuntu@qna-cluster-1:~$ vi webserver-configmap.yaml 
 apiVersion: v1
@@ -167,31 +183,30 @@ spec:
     envFrom:
       - configMapRef:
           name: webserver
-
-ubuntu@qna-cluster-1:~$ kubectl get pods
-NAME                                   READY   STATUS    RESTARTS   AGE
-webserver-configmap                    1/1     Running   0          12s
+    env:
+    - name: PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: sun-secret
+          key: PASSWORD
 
 ```
 
-### <div id='3.4'> 3.4. 확인
-```
-ubuntu@qna-cluster-1:~$ kubectl exec -it webserver-configmap -- env | grep DBNAME
-DBNAME=mysql
-ubuntu@qna-cluster-1:~$ kubectl exec -it webserver-configmap -- env | grep USER
-USER=admin
 
+### <div id='3.5'> 3.5. 확인
+```
 ubuntu@qna-cluster-1:~$ kubectl exec -it webserver-configmap -- /bin/bash 
 root@webserver-configmap:/# env
 KUBERNETES_SERVICE_PORT_HTTPS=443
 KUBERNETES_SERVICE_PORT=443
 HOSTNAME=webserver-configmap
-DBNAME=mysql    <DBNAME 확인>
+DBNAME=mysql  <DBNAME 확인>
 PWD=/
 PKG_RELEASE=1~bookworm
 HOME=/root
 KUBERNETES_PORT_443_TCP=tcp://10.233.0.1:443
 DYNPKG_RELEASE=1~bookworm
+PASSWORD=adminsecret    <PASSWORD 확인>
 NJS_VERSION=0.8.9
 TERM=xterm
 USER=admin      <USER 확인>
@@ -205,5 +220,14 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 NGINX_VERSION=1.27.4
 NJS_RELEASE=1~bookworm
 _=/usr/bin/env
+
+
+ubuntu@qna-cluster-1:~$ kubectl exec -it webserver-configmap -- env | grep DBNAME
+DBNAME=mysql
+ubuntu@qna-cluster-1:~$ kubectl exec -it webserver-configmap -- env | grep USER
+USER=admin
+ubuntu@qna-cluster-1:~$ kubectl exec -it webserver-configmap -n sun -- env | grep PASSWORD
+PASSWORD=adminsecret
+
 
 ```
