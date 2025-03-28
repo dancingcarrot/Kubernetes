@@ -15,7 +15,12 @@
 
 ### <div id='1.1'> 1.1. kubectl drain option
 
-> kubectl drain [노드이름]
+> kubectl drain node [노드명]
+
+1. --ignore-daemonsets=true; : daemonsets로 실행한 파드들을 무시하고 drain 설정을 적용할 수 있다.
+2. --delete-emptydir-data=false : node가 drain될 때 빈 디렉토리(emptyDir)에 있는 데이터를 삭제할지 여부를 결정한다.
+3.  --disable-eviction=false :  강제 Drain이 삭제를 사용하도록 한다. 
+ 
 
 <br>
 <br>
