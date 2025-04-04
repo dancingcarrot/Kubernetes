@@ -6,7 +6,7 @@
   1.1. [이슈](#1.1)<br>
   1.2. [노드 상태 확인](#1.2)<br>
   1.3. [qna-cluster-2 노드접속](#1.3)<br>
-  1.4. [podman 상태 확인](#1.4)<br>
+  1.4. [podman,kubelet 상태 확인](#1.4)<br>
   1.5. [podman 재시작/kubelet enable설정](#1.5)<br>
   1.6. [상태확인](#1.6)<br>
   1.7. [qna-cluster-3 접속](#1.7)<br>
@@ -57,7 +57,7 @@ $ ssh qna-cluster-2
 ```
 해당 명령어를 통해 qna-cluster-2로 접속
 
-### <div id='1.4'> 1.4. podman 상태 확인
+### <div id='1.4'> 1.4. podman,kubelet 상태 확인
 
 ```
 ubuntu@qna-cluster-2:~$  systemctl status podman
