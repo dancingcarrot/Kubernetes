@@ -233,5 +233,7 @@ ubuntu@qna-cluster-001:~/workspace/sun/test$ kubectl edit svc front-end-svc -n d
 ```
 
 5. 접속 확인
+
+
 ![image](./images/image.png)
 
