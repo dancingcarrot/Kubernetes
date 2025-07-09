@@ -148,7 +148,7 @@ front-end-svc   NodePort   10.233.40.186   <none>        8080:30080/TCP   104s
 
 >결과
 
-![alt text](image-1.png)
+![image-1](./images/image-1.png)
 
 <details>
 <summary>8080으로 nginx 접속 안되는 이유</summary>
@@ -233,5 +233,5 @@ ubuntu@qna-cluster-001:~/workspace/sun/test$ kubectl edit svc front-end-svc -n d
 ```
 
 5. 접속 확인
+![image](./images/image.png)
 
-![alt text](image.png)
