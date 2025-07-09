@@ -129,9 +129,11 @@ ingress-nginx-controller-admission   ClusterIP      10.233.39.238   <none>      
 
 ![image-7](./images/image-7.png)
 
-![image-8](./images/image-8.png)
+
 
 7. test.foo.com/app 에러 확인 (app-nginx pod 로그 확인)
+
+![image-8](./images/image-8.png)
 
 ```
 ubuntu@qna-cluster-001:~/workspace/sun/test$ kubectl logs app-nginx -n ingress
