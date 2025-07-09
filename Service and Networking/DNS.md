@@ -14,9 +14,10 @@
 
 (https://kubernetes.io/ko/docs/concepts/services-networking/dns-pod-service/)
 
+```
 > Service DNS 형식: <svc-name>.<namespace>.svc.cluster.local
 > Pod DNS 형식: <pod-ip>.<namespace>.pod.clouster.local
-
+```
 
 ### <div id='1.2'> 1.2. Service and DNS Lookup 구성
 
