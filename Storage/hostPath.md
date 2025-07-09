@@ -83,5 +83,8 @@ spec:
 ubuntu@qna-cluster-001:~/workspace/sun$ kubectl describe pod fluentd-qds7l -n subtask
 ```
 
-![alt text](image.png)
-![alt text](image-1.png)
+![image](./images/image.png)
+
+
+![image-1](./images/image-1.png)
+
