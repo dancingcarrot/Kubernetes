@@ -17,7 +17,7 @@
 - 데이터를 포함하고 있는 디렉터리이며, 파드의 컨테이너에서 접근 가능하다.
 
 <details>
-<sumary> 볼륨 유형 </summary>
+<summary> 볼륨 유형 </summary>
 
 - cephfs
   - cephfs 볼륨은 기존 CephFS 볼륨을 파드에 마운트 할 수 있다. 
