@@ -123,7 +123,7 @@ ingress-nginx-controller-admission   ClusterIP      10.233.39.238   <none>      
 
 # 로컬 pc의 hosts파일
 
-27.96.156.231 foo.bar.com   # 추가
+27.96.156.231 test.foo.com   # 추가
 
 ```
 
